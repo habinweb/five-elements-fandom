@@ -131,7 +131,7 @@ body {
   cursor: pointer;
   transition: 0.3s;
   text-align: left;
-  line-height: 1.6;
+  line-height: 1.8;
   color: var(--color-text-sub);
   opacity: 0;
   transform: translateY(12px);
