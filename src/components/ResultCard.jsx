@@ -21,7 +21,7 @@ export default function ResultCard({ result, resultsMap, isCombo }) {
   return (
     <article className="result-card">
       <img
-        src={`${base}img/${result.id}.png`}
+        src={`${base}img/${result.id}.webp`}
         alt={result.label}
         className="result-img"
       />
@@ -48,7 +48,7 @@ export default function ResultCard({ result, resultsMap, isCombo }) {
           <div className="match-box">
             <img
               className="match-card-img"
-              src={bestImgId ? `${base}img/${bestImgId}.png` : ""}
+              src={bestImgId ? `${base}img/${bestImgId}.webp` : ""}
               alt={bestLabel ? `${bestLabel} 이미지` : ""}
             />
             <div className="match-desc-box">
@@ -67,7 +67,7 @@ export default function ResultCard({ result, resultsMap, isCombo }) {
           <div className="match-box">
             <img
               className="match-card-img"
-              src={worstImgId ? `${base}img/${worstImgId}.png` : ""}
+              src={worstImgId ? `${base}img/${worstImgId}.webp` : ""}
               alt={worstLabel ? `${worstLabel} 이미지` : ""}
             />
             <div className="match-desc-box">

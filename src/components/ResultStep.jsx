@@ -116,7 +116,7 @@ export default function ResultStep({
                   <div className="all-results-thumb">
                     <img
                       className="all-img"
-                      src={`${import.meta.env.BASE_URL}img/${v.id}.png`}
+                      src={`${import.meta.env.BASE_URL}img/${v.id}.webp`}
                       alt={v.label}
                     />
                   </div>
