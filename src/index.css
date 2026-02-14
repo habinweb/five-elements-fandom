@@ -1,0 +1,159 @@
+/* 1. 폰트 */
+@font-face {
+  font-family: "AtoZ";
+  src: url("./assets/fonts/atoz-regular.woff2") format("woff2");
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: "AtoZ";
+  src: url("./assets/fonts/atoz-semibold.woff2") format("woff2");
+  font-weight: 600;
+}
+
+@font-face {
+  font-family: "AtoZ";
+  src: url("./assets/fonts/atoz-bold.woff2") format("woff2");
+  font-weight: 700;
+}
+
+@font-face {
+  font-family: "AtoZ";
+  src: url("./assets/fonts/atoz-extrabold.woff2") format("woff2");
+  font-weight: 800;
+}
+
+@font-face {
+  font-family: "hs";
+  src: url("./assets/fonts/HSJandari-Regular.woff2") format("woff2");
+  font-weight: 500;
+}
+
+@font-face {
+  font-family: "griun";
+  src: url("./assets/fonts/11zon_Griun_Myoeunddobak-Rg.woff2") format("woff2");
+  font-weight: 500;
+}
+
+@font-face {
+  font-family: "um";
+  src: url("./assets/fonts/Umdot12.woff2") format("woff2");
+  font-weight: 500;
+}
+
+@font-face {
+  font-family: "mul";
+  src: url("./assets/fonts/Mulmaru.woff2") format("woff2");
+  font-weight: 500;
+}
+
+/* 2. 전체 초기화 (Reset) */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box; /* 박스 크기 계산을 편하게! */
+}
+
+:root {
+  /* ===============================
+   🎨 Primary (블루아워 핑크 라이트 톤)
+================================= */
+
+  --color-primary-50: #fff7f9;
+  --color-primary-100: #ffeef2;
+  --color-primary-200: #ffe2e8;
+  --color-primary-300: #ffd4dd;
+  --color-primary-400: #ffc4d0;
+
+  --color-primary: #f6b7c3; /* 500 - 맑은 파스텔 핑크 */
+  --color-primary-trans: #f6b7c350;
+
+  --color-primary-600: #eaa8b5;
+  --color-primary-hover: #de99a7; /* 700 */
+  --color-primary-800: #c8818f;
+  --color-primary-900: #ad6b78;
+
+  /* ===============================
+   🖼 Background (블루아워 베이스)
+================================= */
+  --color-bg-body: #eef1f6; /* 연한 블루그레이 */
+  --color-bg-card: #ffffff; /* 카드 */
+  --color-bg-soft: #e3e8f0; /* 섹션 구분 */
+  --color-bg-soft2: #d7dde8; /* 강조 배경 */
+
+  /* ===============================
+   ✏️ Text (부드러운 차콜 블루)
+================================= */
+  --color-text-main: #2e3445;
+  --color-text-sub: #4b5368;
+  --color-text-muted: #8a93a8;
+
+  /* ===============================
+   🔲 Border
+================================= */
+  --color-border: #d4dae5;
+
+  /* ===============================
+   🌈 오행 컬러 (톤 다운 버전)
+================================= */
+  --color-wood: #7fa77a; /* 세이지 그린 */
+  --color-fire: #d9776b; /* 뮤트 코랄 */
+  --color-earth: #c8a67a; /* 웜 베이지 */
+  --color-metal: #bfc4cf; /* 소프트 실버 */
+  --color-water: #6f8fb8; /* 소프트 딥블루 */
+
+  /* ===============================
+   📏 Radius & Shadow
+================================= */
+  --radius-md: 14px;
+  --shadow-md: 0 10px 30px rgba(50, 60, 90, 0.08);
+}
+
+body {
+  font-family:
+    "mul",
+    system-ui,
+    -apple-system,
+    sans-serif;
+
+  color: var(--text-color);
+  line-height: 1.6;
+  font-weight: 500;
+
+  /* 화면 중앙 정렬을 위한 설정 (모바일 앱 느낌) */
+  display: flex;
+  justify-content: center;
+}
+
+#root {
+  width: 100%;
+  max-width: 500px;
+  background: transparent;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.05);
+}
+
+/* 4. 공통 링크/버튼 초기화 */
+button {
+  border: none;
+  background: none;
+  font-family: inherit;
+  cursor: pointer;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+li {
+  list-style: none;
+}
+/* 웹 접근성을 위한 숨김 텍스트 처리 */
+.skip {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: polygon(0 0, 0 0, 0 0);
+  white-space: nowrap;
+}
