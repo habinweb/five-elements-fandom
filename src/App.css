@@ -186,6 +186,7 @@ body {
   padding: 1rem 1.5rem;
   background: var(--color-bg-card);
   border-radius: 15px;
+  color: var(--color-text-main);
 }
 
 .progress-bar-bg {
