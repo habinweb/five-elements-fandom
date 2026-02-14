@@ -271,7 +271,7 @@ body {
 }
 
 .result-desc {
-  font-size: 0.9rem;
+  font-size: 0.8rem;
   line-height: 1.65;
   color: var(--color-text-sub);
   margin: 2.5rem 0 1.1rem;
@@ -291,7 +291,7 @@ body {
 }
 .result-style-list {
   text-align: left;
-  font-size: 0.9rem;
+  font-size: 0.8rem;
   color: var(--color-text-sub);
 }
 .result-style-item {
@@ -350,7 +350,7 @@ body {
   font-size: 0.85rem;
 }
 .result-style {
-  font-size: 0.9rem;
+  font-size: 0.8rem;
   color: var(--color-text-sub);
   text-align: justify;
 }
@@ -388,7 +388,7 @@ body {
   display: flex;
   align-items: center;
   gap: 10px;
-  font-size: 0.9rem;
+  font-size: 0.8rem;
   font-weight: 700;
 }
 .bar {
@@ -494,14 +494,14 @@ body {
   gap: 10px;
 }
 .footer p {
-  font-size: 0.9rem;
+  font-size: 0.7rem;
   color: var(--color-text-muted);
 }
 
 .link {
   margin-top: 5px;
   color: var(--color-text-sub);
-  font-size: 0.85rem;
+  font-size: 0.7rem;
   text-decoration: underline;
 }
 
