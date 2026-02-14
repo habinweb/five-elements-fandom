@@ -46,6 +46,7 @@ function App() {
           scores={quizState.scores}
           restart={quizState.restart}
           share={quizState.share}
+          shareKey={quizState.shareKey}
         />
       )}
 
