@@ -122,12 +122,47 @@ export default function useQuiz(quiz) {
   const share = async () => {
     const url = new URL(window.location.origin + window.location.pathname);
     url.searchParams.set("result", key);
+    const shareUrl = url.toString();
 
+    // 1) 모바일/인앱에서 제일 안정적인 시스템 공유
+    if (navigator.share) {
+      try {
+        await navigator.share({
+          title: "덕질 오행 테스트",
+          text: "내 덕질 오행 결과 보기 👇",
+          url: shareUrl,
+        });
+        return;
+      } catch (e) {
+        // 사용자가 취소해도 여기로 옴 → 조용히 폴백
+      }
+    }
+
+    // 2) 클립보드 복사 시도
     try {
-      await navigator.clipboard.writeText(url.toString());
-      alert("공유 링크 복사 완료!");
+      if (navigator.clipboard?.writeText) {
+        await navigator.clipboard.writeText(shareUrl);
+        alert("공유 링크 복사 완료!");
+        return;
+      }
+    } catch (e) {
+      // 인앱/권한 문제면 폴백
+    }
+
+    // 3) 최후 폴백: 임시 input으로 복사
+    try {
+      const input = document.createElement("input");
+      input.value = shareUrl;
+      document.body.appendChild(input);
+      input.select();
+      input.setSelectionRange(0, shareUrl.length);
+      const ok = document.execCommand("copy");
+      document.body.removeChild(input);
+
+      if (ok) alert("공유 링크 복사 완료!");
+      else prompt("아래 링크를 복사하세요.", shareUrl);
     } catch {
-      prompt("아래 링크를 복사하세요.", url.toString());
+      prompt("아래 링크를 복사하세요.", shareUrl);
     }
   };
 
