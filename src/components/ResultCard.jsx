@@ -54,7 +54,7 @@ export default function ResultCard({ result, resultsMap, isCombo }) {
             <div className="match-desc-box">
               <div className="match-desc-top">
                 <h5 className="match-card-title best">평생 갈 덕친✨</h5>
-                <p>
+                <p className="match-card-title-input">
                   <strong>{bestLabel}</strong>
                 </p>
               </div>
@@ -73,7 +73,7 @@ export default function ResultCard({ result, resultsMap, isCombo }) {
             <div className="match-desc-box">
               <div className="match-desc-top">
                 <h5 className="match-card-title worst">지뢰 주의보 빌런⚡</h5>
-                <p>
+                <p className="match-card-title-input">
                   <strong>{worstLabel}</strong>
                 </p>
               </div>
