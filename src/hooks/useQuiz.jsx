@@ -122,6 +122,7 @@ export default function useQuiz(quiz) {
   const share = async () => {
     const url = new URL(window.location.origin + window.location.pathname);
     url.searchParams.set("result", key);
+    url.searchParams.set("v", Date.now());
     const shareUrl = url.toString();
 
     // 1) 모바일/인앱에서 제일 안정적인 시스템 공유
