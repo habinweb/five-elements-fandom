@@ -1,14 +1,14 @@
 import { useEffect, useMemo, useState } from "react";
+import { sendSelectOption, sendQuizResult } from "../assets/utils/input";
 
 export default function useQuiz(quiz) {
   const questions = quiz?.questions ?? [];
   const total = questions.length;
 
-  const [step, setStep] = useState("cover"); // "cover" | "quiz" | "result"
+  const [step, setStep] = useState("cover");
   const [i, setI] = useState(0);
   const [picked, setPicked] = useState(() => Array(total).fill(null));
 
-  // 질문 수 바뀌면 picked 길이 정리
   useEffect(() => {
     setPicked((prev) => {
       if (prev.length === total) return prev;
@@ -25,14 +25,12 @@ export default function useQuiz(quiz) {
 
   const scores = useMemo(() => {
     const s = { fire: 0, water: 0, wood: 0, metal: 0, earth: 0 };
-
     picked.forEach((ansIndex, qIndex) => {
       if (ansIndex == null) return;
       const type = questions[qIndex]?.answers?.[ansIndex]?.type;
       if (!type) return;
       s[type] += 1;
     });
-
     return s;
   }, [picked, questions]);
 
@@ -44,19 +42,16 @@ export default function useQuiz(quiz) {
       .map(([k]) => k);
   }, [scores]);
 
-  // 내가 푼 결과 키
   const key = useMemo(() => {
     if (topTypes.length === 4) return "multi4";
     return topTypes.slice().sort().join("+");
   }, [topTypes]);
 
-  // ✅ 공유 프리뷰 키(파라미터) - 필요할 때만 읽음
   const [shareKey, setShareKey] = useState(() => {
     const params = new URLSearchParams(window.location.search);
-    return params.get("result"); // 없으면 null
+    return params.get("result");
   });
 
-  // ✅ "현재 화면에서 보여줄 키" = (공유 프리뷰면 shareKey) 아니면 (내가 푼 key)
   const displayKey = step === "result" && shareKey ? shareKey : key;
 
   const finalResult = useMemo(() => {
@@ -64,18 +59,15 @@ export default function useQuiz(quiz) {
   }, [quiz?.results, displayKey]);
 
   const isCombo = displayKey.includes("+") || displayKey === "multi4";
-
   const progress = total ? ((i + 1) / total) * 100 : 0;
   const canNext = selected != null;
 
-  // ✅ 공유 링크로 들어오면 "처음에만" 결과 화면으로 점프
   useEffect(() => {
     if (!shareKey) return;
     if (!quiz?.results?.[shareKey]) return;
     setStep("result");
   }, [shareKey, quiz?.results]);
 
-  // ✅ 공용: result 파라미터 제거
   const clearResultParam = () => {
     const url = new URL(window.location.href);
     url.searchParams.delete("result");
@@ -84,13 +76,23 @@ export default function useQuiz(quiz) {
   };
 
   const start = () => {
-    clearResultParam(); // 공유 모드 끄기
-    setPicked(Array(total).fill(null)); // 공유에서 들어왔을 수도 있으니 초기화
+    clearResultParam();
+    setPicked(Array(total).fill(null));
     setI(0);
     setStep("quiz");
   };
 
   const pickAnswer = (answerIndex) => {
+    const qNow = questions[i];
+    const ans = qNow?.answers?.[answerIndex];
+
+    sendSelectOption({
+      questionId: qNow?.id ?? i + 1,
+      optionIndex: answerIndex,
+      optionText: ans?.text ?? "",
+      optionType: ans?.type ?? "",
+    });
+
     setPicked((prev) => {
       const copy = [...prev];
       copy[i] = answerIndex;
@@ -108,12 +110,19 @@ export default function useQuiz(quiz) {
 
   const next = () => {
     if (!canNext) return;
-    if (i + 1 < total) setI((p) => p + 1);
-    else setStep("result");
+
+    if (i + 1 < total) {
+      setI((p) => p + 1);
+    } else {
+      if (!shareKey) {
+        sendQuizResult({ resultType: key, topTypes });
+      }
+      setStep("result");
+    }
   };
 
   const restart = () => {
-    clearResultParam(); // 공유 모드 끄기
+    clearResultParam();
     setStep("cover");
     setI(0);
     setPicked(Array(total).fill(null));
@@ -125,7 +134,6 @@ export default function useQuiz(quiz) {
     url.searchParams.set("v", Date.now());
     const shareUrl = url.toString();
 
-    // 1) 모바일/인앱에서 제일 안정적인 시스템 공유
     if (navigator.share) {
       try {
         await navigator.share({
@@ -134,23 +142,17 @@ export default function useQuiz(quiz) {
           url: shareUrl,
         });
         return;
-      } catch (e) {
-        // 사용자가 취소해도 여기로 옴 → 조용히 폴백
-      }
+      } catch {}
     }
 
-    // 2) 클립보드 복사 시도
     try {
       if (navigator.clipboard?.writeText) {
         await navigator.clipboard.writeText(shareUrl);
         alert("공유 링크 복사 완료!");
         return;
       }
-    } catch (e) {
-      // 인앱/권한 문제면 폴백
-    }
+    } catch {}
 
-    // 3) 최후 폴백: 임시 input으로 복사
     try {
       const input = document.createElement("input");
       input.value = shareUrl;
@@ -174,14 +176,12 @@ export default function useQuiz(quiz) {
     questions,
     q,
     selected,
-
     scores,
     topTypes,
-    key, // 내가 푼 키
-    displayKey, // 화면에 보여주는 키(공유/내 결과)
+    key,
+    displayKey,
     finalResult,
     isCombo,
-
     progress,
     canNext,
     shareKey,
