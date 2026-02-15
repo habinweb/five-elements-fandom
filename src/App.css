@@ -347,8 +347,11 @@ body {
 .match-card-title.worst {
   color: var(--color-fire);
 }
-.match-desc {
+.match-card-title-input {
   font-size: 0.85rem;
+}
+.match-desc {
+  font-size: 0.8rem;
 }
 .result-style {
   font-size: 0.8rem;
