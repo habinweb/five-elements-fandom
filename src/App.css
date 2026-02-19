@@ -439,6 +439,7 @@ body {
 .last-btn.share {
   background: var(--color-primary);
   color: var(--color-text-main);
+  margin-top: 1rem;
 }
 .all-results {
   width: 100%;

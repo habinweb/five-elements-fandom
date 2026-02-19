@@ -1,4 +1,4 @@
-export default function ResultCard({ result, resultsMap }) {
+export default function ResultCard({ result, resultsMap, share }) {
   if (!result) return null;
 
   const base = import.meta.env.BASE_URL;
@@ -84,6 +84,9 @@ export default function ResultCard({ result, resultsMap }) {
           ))}
         </ul>
       )}
+      <button type="button" className="last-btn share" onClick={share}>
+        내 결과 공유하기
+      </button>
     </article>
   );
 }

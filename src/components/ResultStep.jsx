@@ -91,9 +91,6 @@ export default function ResultStep({
         <button type="button" className="last-btn" onClick={restart}>
           다시 하기
         </button>
-        <button type="button" className="last-btn share" onClick={share}>
-          테스트 공유하기
-        </button>
       </div>
 
       {/* ✅ 전체 결과 보기 섹션 */}
